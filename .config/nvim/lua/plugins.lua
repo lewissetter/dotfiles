@@ -1,4 +1,4 @@
-local ensure_packer = function()
+local ensure_packer = function ()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
@@ -24,46 +24,46 @@ local plugins = {
     'rafamadriz/friendly-snippets',
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
-    { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
+    { 'petertriho/cmp-git',      requires = 'nvim-lua/plenary.nvim' },
     'hrsh7th/cmp-cmdline',
     'onsails/lspkind.nvim',
-    { 'hrsh7th/nvim-cmp', config = function() require 'cmp-config' end },
+    { 'hrsh7th/nvim-cmp',        config = function () require 'cmp-config' end },
 
     -- LSP
-    { 'neovim/nvim-lspconfig', requires = 'hrsh7th/cmp-nvim-lsp', config = function() require 'lsp-config' end },
-    { 'williamboman/mason.nvim', config = function() require'mason'.setup {} end },
+    { 'neovim/nvim-lspconfig',   requires = 'hrsh7th/cmp-nvim-lsp',              config = function () require 'lsp-config' end },
+    { 'williamboman/mason.nvim', config = function () require 'mason'.setup {} end },
 
     -- treesitter
     {
         'nvim-treesitter/nvim-treesitter',
-        config = function() require'nvim-treesitter.configs'.setup { highlight = { enable = true } } end,
+        config = function () require 'nvim-treesitter.configs'.setup { highlight = { enable = true } } end,
         run = ':TSUpdate'
     },
 
     -- UI
-    { 'lewis6991/gitsigns.nvim', config = function() require'gitsigns'.setup() end },
+    { 'lewis6991/gitsigns.nvim',         config = function () require 'gitsigns'.setup() end },
     {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons' },
-        config = function() require'lualine'.setup { options = { theme = 'tokyonight' } } end
+        config = function () require 'lualine'.setup { options = { theme = 'tokyonight' } } end
     },
     {
         'romgrk/barbar.nvim',
         requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'bufferline'.setup { icons = 'both' } end
+        config = function () require 'bufferline'.setup { icons = 'both' } end
     },
 
     -- search
     {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'nvim-tree'.setup() end
+        config = function () require 'nvim-tree'.setup() end
     },
     {
         'nvim-telescope/telescope.nvim',
         requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
         cmd = 'Telescope',
-        config = function()
+        config = function ()
             local telescope = require 'telescope'
             telescope.setup {
                 defaults = { file_ignore_patterns = { '.git' } },
@@ -85,12 +85,12 @@ local plugins = {
     -- movement and editing
     {
         'terrortylor/nvim-comment',
-        config = function() require'nvim_comment'.setup { marker_padding = true, comment_empty = false } end
+        config = function () require 'nvim_comment'.setup { marker_padding = true, comment_empty = false } end
     },
     {
         'folke/which-key.nvim',
-        config = function()
-            require'which-key'.setup()
+        config = function ()
+            require 'which-key'.setup()
             require 'which-key-config'
         end
     },
@@ -99,8 +99,8 @@ local plugins = {
     -- colorscheme
     {
         'folke/tokyonight.nvim',
-        config = function()
-            require'tokyonight'.setup { style = 'moon', transparent = 'true' }
+        config = function ()
+            require 'tokyonight'.setup { style = 'moon', transparent = 'true' }
             vim.cmd('colorscheme tokyonight')
         end
     },
@@ -108,51 +108,34 @@ local plugins = {
     -- development
     {
         'mfussenegger/nvim-dap',
-        config = function()
+        config = function ()
             local dap = require('dap')
-            dap.adapters.lldb = { type = 'executable', command = '/usr/bin/lldb-vscode-14', name = 'lldb' }
+            dap.adapters.lldb = { type = 'executable', command = 'lldb-vscode', name = 'lldb' }
             dap.configurations.cpp = {
                 {
                     name = 'Launch',
                     type = 'lldb',
                     request = 'launch',
-                    program = function()
+                    program = function ()
                         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
                     end,
                     cwd = '${workspaceFolder}',
                     stopOnEntry = false,
                     args = {}
-
-                    -- 💀
-                    -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-                    --
-                    --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-                    --
-                    -- Otherwise you might get the following error:
-                    --
-                    --    Error on launch: Failed to attach to the target process
-                    --
-                    -- But you should be aware of the implications:
-                    -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-                    -- runInTerminal = false,
                 }
             }
-
-            -- If you want to use this for Rust and C, add something like this:
-
-            -- dap.configurations.c = dap.configurations.cpp
-            -- dap.configurations.rust = dap.configurations.cpp
         end
     },
-    { 'rcarriga/nvim-dap-ui', config = function() require'dapui'.setup() end }
+    { 'rcarriga/nvim-dap-ui',            config = function () require 'dapui'.setup() end },
+    { 'theHamsta/nvim-dap-virtual-text', config = function () require 'nvim-dap-virtual-text'.setup() end }
 }
 
-require'packer'.startup({
-    function(use)
+require 'packer'.startup({
+    function (use)
         for _, plugin in ipairs(plugins) do use(plugin) end
-        if packer_bootstrap then require'packer'.sync() end
+        if packer_bootstrap then require 'packer'.sync() end
     end,
-    config = { display = { open_fn = function() return require'packer.util'.float({ border = 'single' }) end } },
+    config = { display = { open_fn = function () return require 'packer.util'.float({ border = 'single' }) end } },
     compile_on_sync = true,
     auto_clean = true
 })

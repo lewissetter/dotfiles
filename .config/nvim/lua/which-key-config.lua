@@ -9,7 +9,6 @@ wk.register({
         p = { '<cmd>BufferPick<CR>', 'Pick Tab' },
         o = { '<cmd>BufferOrderByBufferNumber<CR>', 'Order Tabs by number' }
     },
-
     l = {
         name = '+LSP',
         o = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Open diagnostic' },
@@ -33,7 +32,6 @@ wk.register({
             l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'List folder' }
         }
     },
-
     f = {
         name = '+File Explorer',
         e = { '<cmd>NvimTreeFocus<CR>', 'Focus File Explorer' },
@@ -42,7 +40,6 @@ wk.register({
         l = { '<cmd>Telescope live_grep<CR>', 'Open Telescope live grep' },
         b = { '<cmd>Telescope buffers<CR>', 'Open Telescope buffer searcher' }
     },
-
     h = {
         name = '+Gitsigns',
         p = { '<cmd>Gitsigns preview_hunk<CR>', 'Preview hunk' },
@@ -55,7 +52,6 @@ wk.register({
         ['['] = { '<cmd>Gitsigns prev_hunk<CR>', 'Previous hunk' },
         [']'] = { '<cmd>Gitsigns next_hunk<CR>', 'Next hunk' }
     },
-
     d = {
         name = '+DAP',
         c = { '<cmd>DapContinue<CR>', 'Continue' },

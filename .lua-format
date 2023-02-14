@@ -1,6 +1,0 @@
-double_quote_to_single_quote: true
-spaces_inside_table_braces: true
-break_before_table_rb: true
-break_after_table_lb: true
-chop_down_table: true
-column_limit: 120
